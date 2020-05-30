@@ -3,6 +3,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -52,94 +53,96 @@
 </head>
 
 <body>
-<div class="loading-bar">
-    <div class="progress"></div>
-</div>
-<div class="container">
-    {{ extra_macros::fork_on_github(link=config.extra.github_link) }}
-    <div id="mobile-navbar" class="mobile-navbar">
-        <div class="mobile-header-logo">
-            <a href="/" class="logo">{{ config.extra.mikoto_title }}</a>
-        </div>
-        <div class="mobile-navbar-icon icon-out">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
+    <div class="loading-bar">
+        <div class="progress"></div>
     </div>
+    <div class="container">
+        <div id="mobile-navbar" class="mobile-navbar">
+            <div class="mobile-header-logo">
+                <a href="/" class="logo">{{ config.extra.mikoto_title }}</a>
+            </div>
+            <div class="mobile-navbar-icon icon-out">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
 
-    <nav id="mobile-menu" class="mobile-menu slideout-menu slideout-menu-left">
-        <ul class="mobile-menu-list">
-            {% for item in config.extra.mikoto_menu %}
-            <li class="mobile-menu-item">
-                <a href={{ item.url | replace(from="$BASE_URL" , to=config.base_url) }}> {{ item.name }} </a>
-            </li>
-            {% endfor %}
-        </ul>
-    </nav>
-
-    <header id="header">
-        <div class="logo"><a href={{ config.base_url }}>{{ config.extra.mikoto_title }}</a></div>
-        <nav class="menu">
-            <ul>
+        <nav id="mobile-menu" class="mobile-menu slideout-menu slideout-menu-left">
+            <ul class="mobile-menu-list">
                 {% for item in config.extra.mikoto_menu %}
-                <li>
+                <li class="mobile-menu-item">
                     <a href={{ item.url | replace(from="$BASE_URL" , to=config.base_url) }}> {{ item.name }} </a>
                 </li>
                 {% endfor %}
             </ul>
         </nav>
-    </header>
 
-    <main>
-        <div class="content" id="mobile-panel">
-            {% block content %}
-            <div class="posts">
-                {% for page in paginator.pages %}
-                <article class="post">
-                    {{ post_macros::post_title(page=page) }}
-                    {{ post_macros::post_labels(page=page) }}
-                    {{ post_macros::post_summary(page=page) }}
-                    <div class="read-more">
-                        <a href={{ page.permalink }}>Read more...</a>
-                    </div>
-                </article>
-                {% endfor %}
-            </div>
-            <nav class="pagination">
-                {% if paginator.previous %}
-                <a class="previous" href={{ paginator.previous }}>‹ Previous</a>
-                {% endif %}
-                {% if paginator.next %}
-                <a class="next" href={{ paginator.next }}>Next ›</a>
-                {% endif %}
+        <header id="header">
+            <div class="logo"><a href={{ config.base_url }}>{{ config.extra.mikoto_title }}</a></div>
+            <nav class="menu">
+                <ul>
+                    {% for item in config.extra.mikoto_menu %}
+                    <li>
+                        <a href={{ item.url | replace(from="$BASE_URL" , to=config.base_url) }}> {{ item.name }} </a>
+                    </li>
+                    {% endfor %}
+                </ul>
             </nav>
-            {% endblock content %}
-        </div>
-    </main>
+        </header>
 
-    <footer id="footer">
+        <main>
+            <div class="content" id="mobile-panel">
+                {% block content %}
+                <div class="posts">
+                    {% for page in paginator.pages %}
+                    <article class="post">
+                        {{ post_macros::post_title(page=page) }}
+                        {{ post_macros::post_labels(page=page) }}
+                        {{ post_macros::post_summary(page=page) }}
+                        <div class="read-more">
+                            <a href={{ page.permalink }}>Read more...</a>
+                        </div>
+                    </article>
+                    {% endfor %}
+                </div>
+                <nav class="pagination">
+                    {% if paginator.previous %}
+                    <a class="previous" href={{ paginator.previous }}>‹ Previous</a>
+                    {% endif %}
+                    {% if paginator.next %}
+                    <a class="next" href={{ paginator.next }}>Next ›</a>
+                    {% endif %}
+                </nav>
+                {% endblock content %}
+            </div>
+        </main>
 
-    </footer>
-</div>
-<footer id="footer">
-    {% block footer %}
-    {% if config.extra.aplayer_enable %}
-    {% if config.extra.aplayer_background %}
-    <meting-js auto={{config.extra.aplayer_background_autolink}} autoplay={{config.extra.aplayer_background_autoplay}} fixed="true"></meting-js>
-    {% endif %}
-    {% endif %}
-    <div class="container">
-        <div class="bottom-bar">
-            Made {#with<span class="heart"></span>#}
-            by
-            <a href="https://github.com/GalAster/zola-theme-mikoto" target="_blank" rel="noopener noreferrer">Aster</a>
-        </div>
+        <footer id="footer">
+
+        </footer>
     </div>
-    {% endblock footer %}
-</footer>
-{% block js_body %}
-<script type="text/javascript" src={{ get_url(path="lib/init.js" , trailing_slash=false) }}></script>
-{% endblock js_body %}
+    <footer id="footer">
+        {% block footer %}
+        {% if config.extra.aplayer_enable %}
+        {% if config.extra.aplayer_background %}
+        <meting-js auto={{config.extra.aplayer_background_autolink}}
+            autoplay={{config.extra.aplayer_background_autoplay}} fixed="true"></meting-js>
+        {% endif %}
+        {% endif %}
+        <div class="container">
+            <div class="bottom-bar">
+                Made {#with<span class="heart"></span>#}
+                by
+                <a href="https://github.com/GalAster/zola-theme-mikoto" target="_blank"
+                    rel="noopener noreferrer">Aster</a>
+            </div>
+        </div>
+        {% endblock footer %}
+    </footer>
+    {% block js_body %}
+    <script type="text/javascript" src={{ get_url(path="lib/init.js" , trailing_slash=false) }}></script>
+    {% endblock js_body %}
 </body>
+
 </html>
